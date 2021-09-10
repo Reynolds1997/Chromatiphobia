@@ -21,10 +21,13 @@ public class nodeLineManager : MonoBehaviour
             foreach(GameObject node in nodes)
             {
                 node.GetComponent<LineRenderer>().enabled = false;
+                node.GetComponent<nodeScript>().viewCylinder.GetComponent<MeshRenderer>().enabled = false;
             }
             foreach (GameObject node in currentlySelectedNode.GetComponent<nodeScript>().connectedNodes)
             {
                 node.GetComponent<LineRenderer>().enabled = true;
+                node.GetComponent<nodeScript>().viewCylinder.GetComponent<MeshRenderer>().enabled = true;
+
                 node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, Color.green, Color.green);
             }
         }

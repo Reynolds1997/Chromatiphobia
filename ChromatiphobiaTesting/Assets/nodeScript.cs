@@ -27,6 +27,8 @@ public class nodeScript : MonoBehaviour
     public string nodeName = "Room 1";
 
     public TMPro.TMP_Text textLabel;
+
+    public GameObject viewCylinder;
     // Start is called before the first frame update
     void Start()
     {
