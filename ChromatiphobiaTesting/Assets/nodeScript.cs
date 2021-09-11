@@ -27,6 +27,8 @@ public class nodeScript : MonoBehaviour
     public string nodeName = "Room 1";
 
     public TMPro.TMP_Text textLabel;
+
+    public GameObject viewCylinder;
     // Start is called before the first frame update
     void Start()
     {
@@ -111,6 +113,14 @@ public class nodeScript : MonoBehaviour
     {
         LineRenderer lineRenderer = this.GetComponent<LineRenderer>(); // new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.enabled = true;
+
+
+        //lineRenderer.material.renderQueue = 1;
+
+        lineRenderer.sortingOrder = 1;
+       // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
+        //lineRenderer.material.color = Color.green;
+
         lineRenderer.startColor = startColor;
         lineRenderer.endColor = endColor;
         lineRenderer.startWidth = lineWidth;

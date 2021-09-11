@@ -32,7 +32,7 @@ public class unitSelection : MonoBehaviour
                 {
 
                     GameObject hitObject = myRaycastHit.transform.gameObject;
-                    //printName(hitObject);
+                    printName(hitObject);
                     if (hitObject.CompareTag(playerUnitTag))
                     {
                         //if (Input.GetButton("Shift"))
@@ -44,7 +44,7 @@ public class unitSelection : MonoBehaviour
                             hitObject.GetComponent<unitMovementScript>().selectUnit();
                      //   }
 
-                        // print(hitObject.name + " selected");
+                        //print(hitObject.name + " selected");
                     }
 
                     //if (hitObject.CompareTag(movementNodeTag))

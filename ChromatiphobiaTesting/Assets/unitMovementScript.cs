@@ -7,6 +7,7 @@ public class unitMovementScript : MonoBehaviour
 {
     // ########################################################################3
     public GameObject selectionRing;
+    public GameObject sightRing;
     public string moveNodeTag = "movementNode";
     public string playerUnitTag = "playerUnit";
     public GameObject currentNode;
@@ -144,6 +145,7 @@ public class unitMovementScript : MonoBehaviour
             //this.GetComponent<Outline>().enabled = true;
 
             selectionRing.GetComponent<MeshRenderer>().enabled = true;
+            //sightRing.GetComponent<MeshRenderer>().enabled = true;
            // fleetManagerObject.GetComponent<fleetManagerScript>().AddShipToSelection(this.gameObject);
 
         //}
@@ -153,6 +155,7 @@ public class unitMovementScript : MonoBehaviour
         isSelected = false;
         //this.GetComponent<Outline>().enabled = false;
         selectionRing.GetComponent<MeshRenderer>().enabled = false;
+        //sightRing.GetComponent<MeshRenderer>().enabled = false;
         //fleetManagerObject.GetComponent<fleetManagerScript>().RemoveShipFromSelection(this.gameObject);
 
     }
