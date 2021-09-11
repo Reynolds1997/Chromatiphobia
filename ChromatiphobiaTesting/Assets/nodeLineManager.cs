@@ -12,7 +12,8 @@ public class nodeLineManager : MonoBehaviour
     public Color edgeColor;
 
     private List<Vector3> nodePositions;
-    
+    IDictionary<GameObject, GameObject> nodeParents = new Dictionary<GameObject, GameObject>();
+
 
 
     // Start is called before the first frame update
@@ -113,5 +114,75 @@ public class nodeLineManager : MonoBehaviour
 
     }
     */
+
+    public GameObject FindShortestPathBFS(GameObject startNode, GameObject goalNode)
+    {
+        //IDictionary<Vector3, Vector3> nodeParents = new Dictionary<Vector3, Vector3>();
+
+        Queue<GameObject> queue = new Queue<GameObject>();
+        HashSet<GameObject> exploredNodes = new HashSet<GameObject>();
+        queue.Enqueue(startNode);
+
+
+        while(queue.Count!= 0)
+        {
+            GameObject currentNode = queue.Dequeue();
+            if(currentNode.transform.position == goalNode.transform.position)
+            {
+                return currentNode;
+            }
+
+            List<GameObject> nodes = GetWalkableNodes(currentNode);
+
+            foreach(GameObject node in nodes)
+            {
+                if (!exploredNodes.Contains(node))
+                {
+
+                    exploredNodes.Add(node);
+                    nodeParents.Add(node, currentNode);
+                    queue.Enqueue(node);
+                }
+            }
+        }
+        return startNode;
+
+    }
+
+    List<GameObject> GetWalkableNodes(GameObject node)
+    {
+        List<GameObject> resultList = new List<GameObject>();
+        foreach(GameObject linkedNode in node.GetComponent<nodeScript>().connectedNodes)
+        {
+            resultList.Add(linkedNode);
+        }
+
+        return resultList;
+    }
+
+    public List<GameObject> FindShortestPathList(GameObject node, GameObject endNode)
+    {
+        List<GameObject> nodePath = new List<GameObject>();
+
+        GameObject goal;
+        goal = FindShortestPathBFS(node, endNode);
+        if(goal == node)
+        {
+            return null;
+        }
+
+
+        GameObject curr = goal;
+        while (curr != node)
+        {
+            nodePath.Add(curr);
+            curr = nodeParents[curr];
+        }
+
+        return nodePath;
+
+
+
+    }
 
 }
