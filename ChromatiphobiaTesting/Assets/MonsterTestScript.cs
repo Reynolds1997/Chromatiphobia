@@ -25,10 +25,33 @@ public class MonsterTestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If the monster hasn't arrived at its end destination yet, and it isn't moving (i.e. resting in a node), calculate a path to its destination.
+        if(!hasArrived && monsterNavMeshAgent.velocity == Vector3.zero)
+        {
+            List<GameObject> pathList = calculatePathList();
 
+            GameObject nextNode = pathList[pathList.Count - 1];
+            //print(nextNode);
+            monsterNavMeshAgent.SetDestination(nextNode.transform.position);
+            print((Vector3.Distance(this.transform.position, nextNode.transform.position)));
+
+            if ((Vector3.Distance(this.transform.position, nextNode.transform.position) <= 5*monsterNavMeshAgent.stoppingDistance)) // && nextNode != endNode)
+            {
+               // print((Vector3.Distance(this.transform.position, nextNode.transform.position)));
+                currentNode = nextNode;
+            }
+
+
+        }
+        //If the monster has arrived at its destination node, set the boolean appropriately.
+        if (Vector3.Distance(this.transform.position, endNode.transform.position) <= 5*monsterNavMeshAgent.stoppingDistance)
+        {
+            hasArrived = true;
+        }
+        /*
         if (!hasArrived)
         {
-            List<GameObject> pathList = nodeMapManager.GetComponent<nodeLineManager>().FindShortestPathList(currentNode, endNode);
+            
             foreach(GameObject node in pathList)
             {
                 print("NODE: " + node);
@@ -42,6 +65,21 @@ public class MonsterTestScript : MonoBehaviour
             
             
         }
+        */
 
+    }
+
+    List<GameObject> calculatePathList()
+    {
+        List<GameObject> ResultpathList = nodeMapManager.GetComponent<nodeLineManager>().FindShortestPathList(currentNode, endNode);
+
+
+        return (ResultpathList);
+    }
+
+    public void setNewDestination(GameObject node)
+    {
+        endNode = node;
+        hasArrived = false;
     }
 }

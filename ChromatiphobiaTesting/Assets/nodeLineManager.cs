@@ -63,61 +63,11 @@ public class nodeLineManager : MonoBehaviour
 
 
     }
-    /*
-    Vector3 findShortestPathDjikstra(Vector3 startPosition, Vector3 goalPosition)
-    {
-        HashSet<Vector3> unexploredNodes = new HashSet<Vector3>();
-
-        IDictionary<Vector3, int> distances = new Dictionary<Vector3, int>();
-        IDictionary<Vector3, Vector3> nodeParents = new Dictionary<Vector3, Vector3>();
-
-        IEnumerable<Vector3> validNodes = nodePositions;
-
-        foreach(Vector3 vertex in validNodes)
-        {
-            distances.Add(new KeyValuePair<Vector3, int>(vertex, int.MaxValue));
-            nodeParents.Add(new KeyValuePair<Vector3, Vector3>(vertex, new Vector3(-1, -1, -1)));
-            unexploredNodes.Add(vertex);
-        }
-
-        distances[startPosition] = 0;
-
-        while (unexploredNodes.Count > 0)
-        {
-            Vector3 curr = distances.Where(x => unexploredNodes.Contains(x.Key)).OrderBy(x => x.Value).First().Key;
-
-            if (curr == goalPosition)
-            {
-                print("Djikstra: " + distances[goalPosition]);
-                return goalPosition;
-            }
-
-            unexploredNodes.Remove(curr);
-
-            IList<Vector3> nodes = GetValidNodes(curr);
-
-            foreach(Vector3 nodePosition in nodes)
-            {
-                int dist = distances[curr] + Weight(node);
-
-                if(dist < distances[node])
-                {
-                    distances[node] = dist;
-                    nodeParents[node] = curr;
-                }
-
-            }
-        }
-
-        return startPosition;
-
-
-    }
-    */
-
+    
     public GameObject FindShortestPathBFS(GameObject startNode, GameObject goalNode)
     {
         //IDictionary<Vector3, Vector3> nodeParents = new Dictionary<Vector3, Vector3>();
+      //  IDictionary<GameObject, GameObject> nodeParents = new Dictionary<GameObject, GameObject>();
 
         Queue<GameObject> queue = new Queue<GameObject>();
         HashSet<GameObject> exploredNodes = new HashSet<GameObject>();
@@ -165,6 +115,9 @@ public class nodeLineManager : MonoBehaviour
         List<GameObject> nodePath = new List<GameObject>();
 
         GameObject goal;
+
+       
+        nodeParents.Clear();
         goal = FindShortestPathBFS(node, endNode);
         if(goal == node)
         {
@@ -172,6 +125,7 @@ public class nodeLineManager : MonoBehaviour
         }
 
 
+        
         GameObject curr = goal;
         while (curr != node)
         {
