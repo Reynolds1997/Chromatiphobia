@@ -5222,9 +5222,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
-  moveSpeed: 3
+  standardMoveSpeed: 4
+  currentMoveSpeed: 0
   visionZone: {fileID: 1843045198358534446}
-  visionZoneScale: 1
+  standardVisionZoneScale: 1
+  currentVisionZoneScale: 0
+  isAlive: 1
 --- !u!114 &1937155702
 MonoBehaviour:
   m_ObjectHideFlags: 0
