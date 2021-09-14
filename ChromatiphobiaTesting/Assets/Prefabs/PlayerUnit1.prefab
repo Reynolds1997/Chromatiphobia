@@ -5174,7 +5174,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -5222,9 +5222,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 10
-  moveSpeed: 0
+  standardMoveSpeed: 4
+  currentMoveSpeed: 0
   visionZone: {fileID: 1843045198358534446}
-  visionZoneScale: 1
+  standardVisionZoneScale: 1
+  currentVisionZoneScale: 0
+  isAlive: 1
 --- !u!114 &1937155702
 MonoBehaviour:
   m_ObjectHideFlags: 0

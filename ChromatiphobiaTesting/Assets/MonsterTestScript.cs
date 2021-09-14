@@ -33,7 +33,7 @@ public class MonsterTestScript : MonoBehaviour
             GameObject nextNode = pathList[pathList.Count - 1];
             //print(nextNode);
             monsterNavMeshAgent.SetDestination(nextNode.transform.position);
-            print((Vector3.Distance(this.transform.position, nextNode.transform.position)));
+           // print((Vector3.Distance(this.transform.position, nextNode.transform.position)));
 
             if ((Vector3.Distance(this.transform.position, nextNode.transform.position) <= 5*monsterNavMeshAgent.stoppingDistance)) // && nextNode != endNode)
             {
@@ -47,6 +47,7 @@ public class MonsterTestScript : MonoBehaviour
         if (Vector3.Distance(this.transform.position, endNode.transform.position) <= 5*monsterNavMeshAgent.stoppingDistance)
         {
             hasArrived = true;
+            
         }
         /*
         if (!hasArrived)

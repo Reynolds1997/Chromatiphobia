@@ -63,13 +63,18 @@ public class unitMovementScript : MonoBehaviour
 
                                 if(hitObject == previousNode || unitNavMeshAgent.velocity == Vector3.zero)
                                 {
-                                    // print("REACHABLE CHECK: OK");
+                                    print(hitObject);
+                                    //print("REACHABLE CHECK: OK");
                                     unitNavMeshAgent.SetDestination(myRaycastHit.point);
                                     currentNode.GetComponent<nodeScript>().removeUnit(this.gameObject);
                                     previousNode = currentNode;
                                     currentNode = hitObject;
                                     hitObject.GetComponent<nodeScript>().addUnit(this.gameObject);
                                     nodeMapManager.GetComponent<nodeLineManager>().currentlySelectedNode = currentNode;
+
+                                    print(unitNavMeshAgent.destination);
+                                   
+
                                 }
                             }
                         }
@@ -78,8 +83,8 @@ public class unitMovementScript : MonoBehaviour
             }
 
         }
+        //print(this.name + Vector3.Distance(this.transform.position, unitNavMeshAgent.destination));
 
-        
 
         //If there's a click, and the unit is selected, check if the click is on the unit.
         //If the click is on a different unit, deselect this unit. 
