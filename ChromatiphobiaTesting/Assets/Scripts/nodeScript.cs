@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class nodeScript : MonoBehaviour
 {
+    public List<GameObject> blockedNodes;
     public List<GameObject> connectedNodes;
     public List<GameObject> currentOccupants;
     public int maxCapacity;
@@ -27,6 +28,8 @@ public class nodeScript : MonoBehaviour
     public string nodeName = "Room 1";
 
     public TMPro.TMP_Text textLabel;
+
+    public GameObject barricadeSphere;
 
     public GameObject viewCylinder;
     // Start is called before the first frame update
@@ -111,6 +114,10 @@ public class nodeScript : MonoBehaviour
 
     public void DrawLine(Vector3 start, Vector3 end, Color startColor, Color endColor)
     {
+        
+        barricadeSphere.transform.position = (start + end) / 2;
+        barricadeSphere.GetComponent<MeshRenderer>().material.color = startColor;
+
         LineRenderer lineRenderer = this.GetComponent<LineRenderer>(); // new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.enabled = true;
 
@@ -118,8 +125,10 @@ public class nodeScript : MonoBehaviour
         //lineRenderer.material.renderQueue = 1;
 
         lineRenderer.sortingOrder = 1;
-       // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
-        //lineRenderer.material.color = Color.green;
+        // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
+        lineRenderer.material.color = startColor;
+
+        //lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 
         lineRenderer.startColor = startColor;
         lineRenderer.endColor = endColor;
