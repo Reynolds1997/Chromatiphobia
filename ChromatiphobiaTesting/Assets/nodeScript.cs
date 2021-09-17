@@ -10,6 +10,11 @@ public class nodeScript : MonoBehaviour
     public int maxCapacity;
     public int currentCapacity;
 
+
+    //node type properties variables
+    public int visitsUntilDestroyed;
+    public int damage;
+
     private Color startColor = Color.blue;
     private Color endColor = Color.green;
    
@@ -67,6 +72,10 @@ public class nodeScript : MonoBehaviour
 
     public void addUnit(GameObject unit)
     {
+        if(visitsUntilDestroyed != -1)
+        {
+            visitsUntilDestroyed--;
+        }
         currentCapacity++;
         currentOccupants.Add(unit);
         UpdateText();
@@ -77,7 +86,22 @@ public class nodeScript : MonoBehaviour
         currentCapacity--;
         currentOccupants.Remove(unit);
         UpdateText();
-
+        if (visitsUntilDestroyed == 0)
+        {
+            foreach (GameObject node in connectedNodes)
+            {
+               
+                foreach(GameObject node1 in node.GetComponent<nodeScript>().connectedNodes)
+                {
+                    print(node1.GetComponent<nodeScript>().nodeName);
+                    node1.GetComponent<nodeScript>().connectedNodes.Remove(this.gameObject);
+                    
+                }
+            }
+            Destroy(this.gameObject);
+        }
+        //print(unit.UnitStatsManager.currentHealth);
+        //unit.currentHealth -= damage;
     }
 
     void UpdateText()
