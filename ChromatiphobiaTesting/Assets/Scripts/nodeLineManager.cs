@@ -123,6 +123,7 @@ public class nodeLineManager : MonoBehaviour
         return resultList;
     }
 
+    //Returns a list of nodes between the monster's current position and their target position. 
     public List<GameObject> FindShortestPathList(GameObject node, GameObject endNode)
     {
         List<GameObject> nodePath = new List<GameObject>();

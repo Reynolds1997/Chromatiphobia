@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BarricadeScript : MonoBehaviour
 {
@@ -8,10 +9,11 @@ public class BarricadeScript : MonoBehaviour
     public int barricades = 2;
     public string barricadeTag = "barricade";
     private GameObject currentNode;
+    public TMP_Text barricadeCounterLabel;
     // Start is called before the first frame update
     void Start()
     {
-        
+        updateBarricadeText();   
     }
 
     // Update is called once per frame
@@ -65,9 +67,9 @@ public class BarricadeScript : MonoBehaviour
 
             currentNode.GetComponent<nodeScript>().connectedNodes.Remove(endNode);
             currentNode.GetComponent<nodeScript>().blockedNodes.Add(endNode);
-            //barricades--;
+            barricades--;
         }
-        
+        updateBarricadeText();   
     }
 
 
@@ -79,6 +81,13 @@ public class BarricadeScript : MonoBehaviour
 
         currentNode.GetComponent<nodeScript>().connectedNodes.Add(endNode);
         currentNode.GetComponent<nodeScript>().blockedNodes.Remove(endNode);
-        //barricades++;
+        barricades++;
+        updateBarricadeText();
+
+    }
+
+    void updateBarricadeText()
+    {
+        barricadeCounterLabel.SetText(barricades + " BARRICADES");
     }
 }
