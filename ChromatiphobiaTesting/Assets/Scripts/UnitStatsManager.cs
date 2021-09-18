@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class UnitStatsManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class UnitStatsManager : MonoBehaviour
     public float currentVisionZoneScale;
 
     public bool isAlive = true;
+
+    public Image healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,7 @@ public class UnitStatsManager : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+        updateHealthBar();
     }
 
     //Take health away from the unit
@@ -51,12 +55,22 @@ public class UnitStatsManager : MonoBehaviour
         {
             killUnit();
         }
+        updateHealthBar();
+    }
+
+    private void updateHealthBar()
+    {
+        healthBar.fillAmount = (float)currentHealth / (float)maxHealth;
     }
 
     //Kill the unit
     private void killUnit()
     {
         isAlive = false;
+        this.GetComponent<unitMovementScript>().isAlive = isAlive;
+        print("UNIT KILLED!");
+        this.gameObject.transform.position = this.transform.position + new Vector3(0, -1, 0); //Put the  unit partially in the ground.
+        this.gameObject.SetActive(false);
         //Do other stuff to kill unit. Instantiate a dead body, destroy this unit, etc.
     }
 
