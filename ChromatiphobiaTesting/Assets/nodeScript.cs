@@ -76,6 +76,10 @@ public class nodeScript : MonoBehaviour
         {
             visitsUntilDestroyed--;
         }
+        if(damage > 0) {
+            unit.GetComponent<UnitStatsManager>().subtractHealth(damage);
+            print(unit.GetComponent<UnitStatsManager>().currentHealth);
+        }
         currentCapacity++;
         currentOccupants.Add(unit);
         UpdateText();
@@ -93,13 +97,13 @@ public class nodeScript : MonoBehaviour
                
                 foreach(GameObject node1 in node.GetComponent<nodeScript>().connectedNodes)
                 {
-                    print(node1.GetComponent<nodeScript>().nodeName);
                     node1.GetComponent<nodeScript>().connectedNodes.Remove(this.gameObject);
                     
                 }
             }
             Destroy(this.gameObject);
         }
+
         //print(unit.UnitStatsManager.currentHealth);
         //unit.currentHealth -= damage;
     }
