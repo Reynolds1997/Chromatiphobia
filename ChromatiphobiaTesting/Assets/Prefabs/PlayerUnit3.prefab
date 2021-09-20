@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1756973616, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
+      propertyPath: standardVisionZoneScale
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1634580835048306954, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064107522563919177, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150202277023946301, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8684664082675698948, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Mesh
       value: 

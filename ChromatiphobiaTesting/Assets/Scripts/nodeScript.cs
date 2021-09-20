@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class nodeScript : MonoBehaviour
 {
+
+    public List<GameObject> blockedNodes;
+
     public List<GameObject> connectedNodes;
     public List<GameObject> currentOccupants;
     public int maxCapacity;
@@ -14,7 +17,6 @@ public class nodeScript : MonoBehaviour
     //node type properties variables
     public int visitsUntilDestroyed;
     public int damage;
-
     private Color startColor = Color.blue;
     private Color endColor = Color.green;
    
@@ -32,6 +34,9 @@ public class nodeScript : MonoBehaviour
     public string nodeName = "Room 1";
 
     public TMPro.TMP_Text textLabel;
+
+
+    public GameObject barricadeSphere;
 
     public GameObject viewCylinder;
     // Start is called before the first frame update
@@ -72,6 +77,7 @@ public class nodeScript : MonoBehaviour
 
     public void addUnit(GameObject unit)
     {
+
         if(visitsUntilDestroyed != -1)
         {
             visitsUntilDestroyed--;
@@ -80,6 +86,7 @@ public class nodeScript : MonoBehaviour
             unit.GetComponent<UnitStatsManager>().subtractHealth(damage);
             print(unit.GetComponent<UnitStatsManager>().currentHealth);
         }
+
         currentCapacity++;
         currentOccupants.Add(unit);
         UpdateText();
@@ -90,6 +97,7 @@ public class nodeScript : MonoBehaviour
         currentCapacity--;
         currentOccupants.Remove(unit);
         UpdateText();
+
         if (visitsUntilDestroyed == 0)
         {
             foreach (GameObject node in connectedNodes)
@@ -106,6 +114,7 @@ public class nodeScript : MonoBehaviour
 
         //print(unit.UnitStatsManager.currentHealth);
         //unit.currentHealth -= damage;
+
     }
 
     void UpdateText()
@@ -139,6 +148,11 @@ public class nodeScript : MonoBehaviour
 
     public void DrawLine(Vector3 start, Vector3 end, Color startColor, Color endColor)
     {
+
+        
+        barricadeSphere.transform.position = (start + end) / 2;
+        barricadeSphere.GetComponent<MeshRenderer>().material.color = startColor;
+
         LineRenderer lineRenderer = this.GetComponent<LineRenderer>(); // new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.enabled = true;
 
@@ -146,8 +160,15 @@ public class nodeScript : MonoBehaviour
         //lineRenderer.material.renderQueue = 1;
 
         lineRenderer.sortingOrder = 1;
+
        // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
         //lineRenderer.material.color = Color.green;
+
+        // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
+        lineRenderer.material.color = startColor;
+
+        //lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+
 
         lineRenderer.startColor = startColor;
         lineRenderer.endColor = endColor;
