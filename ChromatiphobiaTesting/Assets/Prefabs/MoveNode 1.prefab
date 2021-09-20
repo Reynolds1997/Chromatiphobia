@@ -1049,6 +1049,8 @@ MonoBehaviour:
   currentOccupants: []
   maxCapacity: 2
   currentCapacity: 0
+  visitsUntilDestroyed: 0
+  damage: 0
   debugOn: 0
   lineWidth: 0.5
   drawLines: 0
@@ -2481,7 +2483,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 5, y: 1}
+  m_SizeDelta: {x: 7, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8762514425623123359
 Canvas:

@@ -31,14 +31,16 @@ public class nodeScript : MonoBehaviour
 
     public List<LineRenderer> lineRenderers;
 
-    public string nodeName = "Room 1";
+    public string nodeName = "Standard";
 
     public TMPro.TMP_Text textLabel;
-
 
     public GameObject barricadeSphere;
 
     public GameObject viewCylinder;
+
+    private bool hasScout = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,11 +91,23 @@ public class nodeScript : MonoBehaviour
 
         currentCapacity++;
         currentOccupants.Add(unit);
+
+        if(unit.GetComponent<UnitStatsManager>().unitName == "Scout")
+        {
+            hasScout = true;
+        }
         UpdateText();
+
     }
 
     public void removeUnit(GameObject unit)
     {
+
+        if (unit.GetComponent<UnitStatsManager>().unitName == "Scout")
+        {
+            hasScout = false;
+        }
+
         currentCapacity--;
         currentOccupants.Remove(unit);
         UpdateText();
@@ -119,7 +133,18 @@ public class nodeScript : MonoBehaviour
 
     void UpdateText()
     {
-        string newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        string newText = "";
+
+
+        //    
+        if (hasScout)
+        {
+            newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        }
+        else
+        {
+            newText = "UNKNOWN" + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        }
         textLabel.SetText(newText);
     }
 
@@ -214,5 +239,10 @@ public class nodeScript : MonoBehaviour
             Gizmos.DrawLine(this.transform.position, node.transform.position);
         }
         
+    }
+
+    void victory()
+    {
+
     }
 }

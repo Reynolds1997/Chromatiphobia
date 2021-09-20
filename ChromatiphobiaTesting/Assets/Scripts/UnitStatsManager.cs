@@ -20,6 +20,8 @@ public class UnitStatsManager : MonoBehaviour
 
     public Image healthBar;
 
+    public string unitName = "Scout";
+
     // Start is called before the first frame update
     void Start()
     {
