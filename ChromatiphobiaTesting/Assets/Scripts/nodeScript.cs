@@ -5,11 +5,18 @@ using UnityEngine.UI;
 
 public class nodeScript : MonoBehaviour
 {
+
+    public List<GameObject> blockedNodes;
+
     public List<GameObject> connectedNodes;
     public List<GameObject> currentOccupants;
     public int maxCapacity;
     public int currentCapacity;
 
+
+    //node type properties variables
+    public int visitsUntilDestroyed;
+    public int damage;
     private Color startColor = Color.blue;
     private Color endColor = Color.green;
    
@@ -24,11 +31,16 @@ public class nodeScript : MonoBehaviour
 
     public List<LineRenderer> lineRenderers;
 
-    public string nodeName = "Room 1";
+    public string nodeName = "Standard";
 
     public TMPro.TMP_Text textLabel;
 
+    public GameObject barricadeSphere;
+
     public GameObject viewCylinder;
+
+    private bool hasScout = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,22 +79,72 @@ public class nodeScript : MonoBehaviour
 
     public void addUnit(GameObject unit)
     {
+
+        if(visitsUntilDestroyed != -1)
+        {
+            visitsUntilDestroyed--;
+        }
+        if(damage > 0) {
+            unit.GetComponent<UnitStatsManager>().subtractHealth(damage);
+            print(unit.GetComponent<UnitStatsManager>().currentHealth);
+        }
+
         currentCapacity++;
         currentOccupants.Add(unit);
+
+        if(unit.GetComponent<UnitStatsManager>().unitName == "Scout")
+        {
+            hasScout = true;
+        }
         UpdateText();
+
     }
 
     public void removeUnit(GameObject unit)
     {
+
+        if (unit.GetComponent<UnitStatsManager>().unitName == "Scout")
+        {
+            hasScout = false;
+        }
+
         currentCapacity--;
         currentOccupants.Remove(unit);
         UpdateText();
+
+        if (visitsUntilDestroyed == 0)
+        {
+            foreach (GameObject node in connectedNodes)
+            {
+               
+                foreach(GameObject node1 in node.GetComponent<nodeScript>().connectedNodes)
+                {
+                    node1.GetComponent<nodeScript>().connectedNodes.Remove(this.gameObject);
+                    
+                }
+            }
+            Destroy(this.gameObject);
+        }
+
+        //print(unit.UnitStatsManager.currentHealth);
+        //unit.currentHealth -= damage;
 
     }
 
     void UpdateText()
     {
-        string newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        string newText = "";
+
+
+        //    
+        if (hasScout)
+        {
+            newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        }
+        else
+        {
+            newText = "UNKNOWN" + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        }
         textLabel.SetText(newText);
     }
 
@@ -111,6 +173,11 @@ public class nodeScript : MonoBehaviour
 
     public void DrawLine(Vector3 start, Vector3 end, Color startColor, Color endColor)
     {
+
+        
+        barricadeSphere.transform.position = (start + end) / 2;
+        barricadeSphere.GetComponent<MeshRenderer>().material.color = startColor;
+
         LineRenderer lineRenderer = this.GetComponent<LineRenderer>(); // new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.enabled = true;
 
@@ -118,8 +185,15 @@ public class nodeScript : MonoBehaviour
         //lineRenderer.material.renderQueue = 1;
 
         lineRenderer.sortingOrder = 1;
+
        // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
         //lineRenderer.material.color = Color.green;
+
+        // lineRenderer.material = new Material(Shader.Find("Shaders/LineShader"));
+        lineRenderer.material.color = startColor;
+
+        //lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+
 
         lineRenderer.startColor = startColor;
         lineRenderer.endColor = endColor;
@@ -165,5 +239,10 @@ public class nodeScript : MonoBehaviour
             Gizmos.DrawLine(this.transform.position, node.transform.position);
         }
         
+    }
+
+    void victory()
+    {
+
     }
 }
