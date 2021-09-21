@@ -1060,6 +1060,10 @@ MonoBehaviour:
   textLabel: {fileID: 1509272119983021627}
   barricadeSphere: {fileID: 2957015204131215472}
   viewCylinder: {fileID: 5710538974562187959}
+  victoryCapacity: 11
+  camouflageCapacity: -1
+  trueMat: {fileID: 0}
+  nodeModel: {fileID: 3466662588434900761}
 --- !u!33 &4034221779483961192
 MeshFilter:
   m_ObjectHideFlags: 0

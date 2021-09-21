@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3488461403481868862}
   - component: {fileID: 7150202277023946301}
   - component: {fileID: 1634580835048306954}
+  - component: {fileID: 470094304}
   m_Layer: 0
   m_Name: VisionZone
   m_TagString: detectionZone
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843045198358534446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8684664083573751728}
@@ -1062,7 +1063,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 0
+  m_VersionIndex: 37
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1126,11 +1127,23 @@ MeshCollider:
   m_GameObject: {fileID: 1843045198358534446}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &470094304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843045198358534446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca2df2d22d58284c85e3c938094f6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7170354778984576320
 GameObject:
   m_ObjectHideFlags: 0
@@ -4888,7 +4901,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 0
+  m_VersionIndex: 37
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5072,6 +5085,7 @@ GameObject:
   - component: {fileID: 1937155702}
   - component: {fileID: 5242867524970811345}
   - component: {fileID: 3708800592942672554}
+  - component: {fileID: 1818131166}
   m_Layer: 0
   m_Name: PlayerUnit1
   m_TagString: playerUnit
@@ -5175,7 +5189,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.25
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -5209,6 +5223,7 @@ MonoBehaviour:
   isBetweenNodes: 0
   indexNumber: 0
   unitManager: {fileID: 0}
+  isAlive: 1
 --- !u!114 &1756973616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5226,10 +5241,11 @@ MonoBehaviour:
   standardMoveSpeed: 8
   currentMoveSpeed: 0
   visionZone: {fileID: 1843045198358534446}
-  standardVisionZoneScale: 1
+  standardVisionZoneScale: 0.5
   currentVisionZoneScale: 0
   isAlive: 1
   healthBar: {fileID: 0}
+  unitName: Scout
 --- !u!114 &1937155702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,3 +5286,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1818131166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684664083573751734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca2df2d22d58284c85e3c938094f6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

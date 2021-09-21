@@ -43,6 +43,8 @@ public class nodeLineManager : MonoBehaviour
         //If a node is currently selected, draw the lines leading to it from other nodes.
         if(currentlySelectedNode!= null)
         {
+            bool hasScout = currentlySelectedNode.GetComponent<nodeScript>().hasScout;
+
             foreach(GameObject node in nodes)
             {
                 node.GetComponent<LineRenderer>().enabled = false;
@@ -56,15 +58,13 @@ public class nodeLineManager : MonoBehaviour
                 
                 node.GetComponent<LineRenderer>().enabled = true;
                 node.GetComponent<nodeScript>().viewCylinder.GetComponent<MeshRenderer>().enabled = true;
-
-
                 
-                node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, edgeColor, edgeColor);
+                node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, edgeColor, edgeColor, hasScout);
             }
             foreach(GameObject node in currentlySelectedNode.GetComponent<nodeScript>().blockedNodes)
             {
                 node.GetComponent<nodeScript>().barricadeSphere.GetComponent<MeshRenderer>().enabled = true;
-                node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, blockColor, blockColor);
+                node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, blockColor, blockColor, hasScout);
             }
         }
 
