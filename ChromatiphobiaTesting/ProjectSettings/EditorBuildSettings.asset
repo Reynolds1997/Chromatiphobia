@@ -4,11 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/EvanMainMenu.unity
-    guid: 22dbf2326541ebd4f8498cd780d7bbff
-  - enabled: 1
-    path: Assets/Scenes/EvanTestLab.unity
-    guid: b20bc2ead78b5b6409d5ba40ec4efa0c
+  m_Scenes: []
   m_configObjects: {}

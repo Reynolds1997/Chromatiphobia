@@ -10,7 +10,6 @@ public class nodeLineManager : MonoBehaviour
     public GameObject[] nodes;
     public List<Vector3> edges;
     public Color edgeColor;
-    public Color blockColor;
 
     private List<Vector3> nodePositions;
     IDictionary<GameObject, GameObject> nodeParents = new Dictionary<GameObject, GameObject>();
@@ -40,31 +39,19 @@ public class nodeLineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //If a node is currently selected, draw the lines leading to it from other nodes.
         if(currentlySelectedNode!= null)
         {
             foreach(GameObject node in nodes)
             {
                 node.GetComponent<LineRenderer>().enabled = false;
-                node.GetComponent<nodeScript>().barricadeSphere.GetComponent<MeshRenderer>().enabled = false;
                 node.GetComponent<nodeScript>().viewCylinder.GetComponent<MeshRenderer>().enabled = false;
             }
             foreach (GameObject node in currentlySelectedNode.GetComponent<nodeScript>().connectedNodes)
             {
-
-                node.GetComponent<nodeScript>().barricadeSphere.GetComponent<MeshRenderer>().enabled = true;
-                
                 node.GetComponent<LineRenderer>().enabled = true;
                 node.GetComponent<nodeScript>().viewCylinder.GetComponent<MeshRenderer>().enabled = true;
 
-
-                
                 node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, edgeColor, edgeColor);
-            }
-            foreach(GameObject node in currentlySelectedNode.GetComponent<nodeScript>().blockedNodes)
-            {
-                node.GetComponent<nodeScript>().barricadeSphere.GetComponent<MeshRenderer>().enabled = true;
-                node.GetComponent<nodeScript>().DrawLine(currentlySelectedNode.transform.position, node.transform.position, blockColor, blockColor);
             }
         }
 
@@ -123,7 +110,6 @@ public class nodeLineManager : MonoBehaviour
         return resultList;
     }
 
-    //Returns a list of nodes between the monster's current position and their target position. 
     public List<GameObject> FindShortestPathList(GameObject node, GameObject endNode)
     {
         List<GameObject> nodePath = new List<GameObject>();

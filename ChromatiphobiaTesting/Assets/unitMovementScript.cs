@@ -24,8 +24,6 @@ public class unitMovementScript : MonoBehaviour
     public int indexNumber;
     public GameObject unitManager;
 
-    public bool isAlive = true;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,84 +37,83 @@ public class unitMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+
+        //If there's a click, and the ship is selected, set a new destination.
+        if (Input.GetMouseButtonDown(1) && isSelected)
         {
-            //If there's a click, and the ship is selected, set a new destination.
-            if (Input.GetMouseButtonDown(1) && isSelected)
+            //Unity cast a ray from the position of mouse cursor on screen toward the 3D scene
+            Ray myRay = playerCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit myRaycastHit;
+
+            if (Physics.Raycast(myRay, out myRaycastHit))
             {
-                //Unity cast a ray from the position of mouse cursor on screen toward the 3D scene
-                Ray myRay = playerCamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit myRaycastHit;
-
-                if (Physics.Raycast(myRay, out myRaycastHit))
+                if (myRaycastHit.transform != null)
                 {
-                    if (myRaycastHit.transform != null)
+                    GameObject hitObject = myRaycastHit.transform.gameObject;
+
+                    //print(hitObject);
+                    if (hitObject.CompareTag(moveNodeTag))
                     {
-                        GameObject hitObject = myRaycastHit.transform.gameObject;
-
-                        //print(hitObject);
-                        if (hitObject.CompareTag(moveNodeTag))
+                      //  print("MOVE NODE CHECK: OK");
+                        if (hitObject.GetComponent<nodeScript>().currentCapacity < hitObject.GetComponent<nodeScript>().maxCapacity)
                         {
-                            //  print("MOVE NODE CHECK: OK");
-                            if (hitObject.GetComponent<nodeScript>().currentCapacity < hitObject.GetComponent<nodeScript>().maxCapacity)
+                          //  print("CAPACITY CHECK: OK");
+                            if (hitObject.GetComponent<nodeScript>().connectedNodes.Contains(currentNode))
                             {
-                                //  print("CAPACITY CHECK: OK");
-                                if (hitObject.GetComponent<nodeScript>().connectedNodes.Contains(currentNode))
+
+                                if(hitObject == previousNode || unitNavMeshAgent.velocity == Vector3.zero)
                                 {
+                                    print(hitObject);
+                                    //print("REACHABLE CHECK: OK");
+                                    unitNavMeshAgent.SetDestination(myRaycastHit.point);
+                                    currentNode.GetComponent<nodeScript>().removeUnit(this.gameObject);
+                                    previousNode = currentNode;
+                                    currentNode = hitObject;
+                                    hitObject.GetComponent<nodeScript>().addUnit(this.gameObject);
+                                    nodeMapManager.GetComponent<nodeLineManager>().currentlySelectedNode = currentNode;
 
-                                    if (hitObject == previousNode || unitNavMeshAgent.velocity == Vector3.zero)
-                                    {
-                                        print(hitObject);
-                                        //print("REACHABLE CHECK: OK");
-                                        unitNavMeshAgent.SetDestination(myRaycastHit.point);
-                                        currentNode.GetComponent<nodeScript>().removeUnit(this.gameObject);
-                                        previousNode = currentNode;
-                                        currentNode = hitObject;
-                                        hitObject.GetComponent<nodeScript>().addUnit(this.gameObject);
-                                        nodeMapManager.GetComponent<nodeLineManager>().currentlySelectedNode = currentNode;
+                                    print(unitNavMeshAgent.destination);
+                                   
 
-                                        print(unitNavMeshAgent.destination);
-
-
-                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
-            //print(this.name + Vector3.Distance(this.transform.position, unitNavMeshAgent.destination));
+
+        }
+        //print(this.name + Vector3.Distance(this.transform.position, unitNavMeshAgent.destination));
 
 
-            //If there's a click, and the unit is selected, check if the click is on the unit.
-            //If the click is on a different unit, deselect this unit. 
-            if (Input.GetMouseButtonDown(0) && isSelected)
+        //If there's a click, and the unit is selected, check if the click is on the unit.
+        //If the click is on a different unit, deselect this unit. 
+        if (Input.GetMouseButtonDown(0) && isSelected)
+        {
+
+            Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit myRaycastHit;
+
+            if (Physics.Raycast(myRay, out myRaycastHit))
             {
-
-                Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit myRaycastHit;
-
-                if (Physics.Raycast(myRay, out myRaycastHit))
+                if (myRaycastHit.transform != null)
                 {
-                    if (myRaycastHit.transform != null)
+
+                    GameObject hitObject = myRaycastHit.transform.gameObject;
+                    //print(hitObject);
+
+                    //If the object is not this, and the object selected is a player ship, and shift is not held down, deselect this ship.
+                    if (hitObject != this.gameObject && hitObject.CompareTag(playerUnitTag) && !Input.GetButton("Shift"))
                     {
-
-                        GameObject hitObject = myRaycastHit.transform.gameObject;
-                        //print(hitObject);
-
-                        //If the object is not this, and the object selected is a player ship, and shift is not held down, deselect this ship.
-                        if (hitObject != this.gameObject && hitObject.CompareTag(playerUnitTag) && !Input.GetButton("Shift"))
-                        {
-                            deselectUnit();
-                            print(this.name + " deselected");
-                        }
+                        deselectUnit();
+                        print(this.name + " deselected");
                     }
                 }
             }
-
-
         }
+
+
+
         if (isSelected)
         {
             //currentNode.Selected = true;

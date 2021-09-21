@@ -769,7 +769,7 @@ PrefabInstance:
     - target: {fileID: 1634580835048306954, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1717005986}
+      objectReference: {fileID: 1726397612}
     - target: {fileID: 1634580835048306954, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -789,10 +789,10 @@ PrefabInstance:
     - target: {fileID: 4064107522563919177, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1717005986}
+      objectReference: {fileID: 1726397612}
     - target: {fileID: 4064107522563919177, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_VersionIndex
-      value: 40
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 4064107522563919177, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_MeshFormatVersion
@@ -805,7 +805,7 @@ PrefabInstance:
     - target: {fileID: 7150202277023946301, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1717005986}
+      objectReference: {fileID: 1726397612}
     - target: {fileID: 8684664082675698948, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1318,7 +1318,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2638
+  m_Name: pb_Mesh-2506
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1759,7 +1759,6 @@ MonoBehaviour:
   nodes: []
   edges: []
   edgeColor: {r: 0, g: 0, b: 0, a: 0}
-  blockColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &610416765
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,7 +4207,6 @@ MonoBehaviour:
   nodes: []
   edges: []
   edgeColor: {r: 0, g: 0, b: 0, a: 0}
-  blockColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1190581591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5486,7 +5484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1501694634
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5968,13 +5966,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c24c50f15f75c9499827f2c153be7a4, type: 3}
---- !u!43 &1717005986
+--- !u!43 &1726397612
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20890
+  m_Name: pb_Mesh20770
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6178,6 +6176,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnits:
   - {fileID: 1937155700}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentlySelectedUnit: {fileID: 1937155700}
 --- !u!1 &1857974476 stripped
 GameObject:

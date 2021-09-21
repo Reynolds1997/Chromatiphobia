@@ -6,9 +6,6 @@ TagManager:
   tags:
   - playerUnit
   - movementNode
-  - enemy
-  - detectionZone
-  - barricade
   layers:
   - Default
   - TransparentFX
