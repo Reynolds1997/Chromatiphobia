@@ -47,7 +47,7 @@ public class nodeScript : MonoBehaviour
     public int camouflageCapacity = -1; //Maximum number of units that can hide in a node. Exceeding this count leaves all units in the node vulnerable.
 
     public Material trueMat;
-    private Material originalMat;
+    public Material originalMat;
     public GameObject nodeModel;
 
 
@@ -158,12 +158,18 @@ public class nodeScript : MonoBehaviour
         //    
         if (hasScout)
         {
-            newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+            //newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
         }
         else
         {
-            newText = "Room" + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+            //newText = "Room" + "\n" + 
         }
+        newText = currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        if(camouflageCapacity > 0)
+        {
+            newText += "\n" + "Camo: " + currentCapacity.ToString() + "/" + camouflageCapacity.ToString();
+        }
+
         textLabel.SetText(newText);
     }
 
@@ -195,10 +201,14 @@ public class nodeScript : MonoBehaviour
 
         //barricadeSphere.transform.position = (start + end) / 2;
         //barricadeSphere.GetComponent<MeshRenderer>().material.color = startColor;
-
+        UpdateText();
         if (hasScout)
         {
             nodeModel.gameObject.GetComponent<MeshRenderer>().material = trueMat;
+        }
+        else
+        {
+            nodeModel.gameObject.GetComponent<MeshRenderer>().material = originalMat;
         }
 
         LineRenderer lineRenderer = this.GetComponent<LineRenderer>(); // new GameObject("Line").AddComponent<LineRenderer>();
