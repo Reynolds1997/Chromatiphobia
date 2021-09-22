@@ -20,9 +20,20 @@ public class UnitStatsManager : MonoBehaviour
 
     public Image healthBar;
 
+
+    //HazadousNode Helper variables
+    private bool onHazadousNode;
+    private int frameRateCounter;
+    private int secondsForDamage;
+    private int damageOnHaz;
+    private bool continousOROnceDelayedDamage;
+
     // Start is called before the first frame update
     void Start()
     {
+        onHazadousNode = false;
+        damageOnHaz = 0;
+        frameRateCounter = 0;
         currentHealth = maxHealth;
         currentMoveSpeed = standardMoveSpeed;
         currentVisionZoneScale = standardVisionZoneScale;
@@ -33,7 +44,46 @@ public class UnitStatsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (onHazadousNode)
+        {
+            
+            if(frameRateCounter == 240*secondsForDamage)
+            {
+                currentHealth -= damageOnHaz;
+                if (continousOROnceDelayedDamage == false)
+                {
+                    onHazadousNode = false;
+                }
+                if(currentHealth == 0)
+                {
+                    killUnit();
+                }
+                frameRateCounter = 0;
+            }
+            else
+            {
+                frameRateCounter++;
+            }
+        }
+        else
+        {
+            damageOnHaz = 0;
+            frameRateCounter = 0;
+        }
+    }
+
+    public void onHazNodeStart(bool start, int seconds, bool typeOfDelay, int damagePerHit)
+    {
+        onHazadousNode = start;
+        secondsForDamage = seconds;
+        continousOROnceDelayedDamage = typeOfDelay;
+        damageOnHaz = damagePerHit;
+    }
+
+    public void onHazNodeEnd(bool end)
+    {
+        onHazadousNode = end;
+        frameRateCounter = 0;
     }
 
     //Add health to the unit
