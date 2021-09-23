@@ -17,6 +17,9 @@ public class MonsterDetection : MonoBehaviour
 
     public GameObject damageSphere;
 
+    public bool hasPlayedSound;
+    public AudioClip alertSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -100,7 +103,8 @@ public class MonsterDetection : MonoBehaviour
 
         if (isChasing)
         {
-            damageSphere.SetActive(true);
+            
+            
             if (foundUnits.Count > 0)
             {
                 bool pursueFirstTarget = true;
@@ -117,8 +121,24 @@ public class MonsterDetection : MonoBehaviour
                     }
                 }
 
+
+                if (!hasPlayedSound)
+                {
+                    this.GetComponent<AudioSource>().PlayOneShot(alertSound);
+                    hasPlayedSound = true;
+                }
+
+                if(foundUnits[0].GetComponent<UnitStatsManager>().currentHealth <= 0)
+                {
+                    pursueFirstTarget = false;
+                    isChasing = false;
+                    foundUnits.Remove(foundUnits[0]);
+                }
+                
+
                 if (pursueFirstTarget)
                 {
+                    damageSphere.SetActive(true);
                     //print("PURSUING TARGET!");
                     GetComponent<Patrolling1>().enabled = false;
                     agent.destination = foundUnits[0].transform.position;
@@ -133,6 +153,7 @@ public class MonsterDetection : MonoBehaviour
 
         else
         {
+            hasPlayedSound = false;
             damageSphere.SetActive(false);
             GetComponent<Patrolling1>().enabled = true;
         }
