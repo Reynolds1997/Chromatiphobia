@@ -21,12 +21,15 @@ public class UnitStatsManager : MonoBehaviour
     public Image healthBar;
 
 
+    public string unitName = "Scout";
+
     //HazadousNode Helper variables
     private bool onHazadousNode;
     private int frameRateCounter;
     private int secondsForDamage;
     private int damageOnHaz;
     private bool continousOROnceDelayedDamage;
+
 
     // Start is called before the first frame update
     void Start()
