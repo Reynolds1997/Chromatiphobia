@@ -24,7 +24,23 @@ public class DamageZoneScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("playerUnit"))
         {
-            dealDamage(other.gameObject);
+            bool canBeDamaged = true;
+            if(other.gameObject.GetComponent<unitMovementScript>().currentNode.GetComponent<nodeScript>().camouflageCapacity > 0)
+            {
+                int camoCapacity = other.gameObject.GetComponent<unitMovementScript>().currentNode.GetComponent<nodeScript>().camouflageCapacity;
+                int currentCapacity = other.gameObject.GetComponent<unitMovementScript>().currentNode.GetComponent<nodeScript>().currentCapacity;
+
+                if (currentCapacity <= camoCapacity)
+                {
+                    canBeDamaged = false;
+                }
+            }
+
+            if (canBeDamaged)
+            {
+                dealDamage(other.gameObject);
+            }
+            
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CamouflageScript : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class CamouflageScript : MonoBehaviour
     public int camoCapacity = 1;
 
     public int camoUnits = 4;
+    public TMP_Text camoCounterLabel;
+
     // Start is called before the first frame update
     void Start()
     {
         unitScript = this.GetComponent<unitMovementScript>();
+        updateCamoText();
     }
 
     // Update is called once per frame
@@ -41,10 +45,16 @@ public class CamouflageScript : MonoBehaviour
                             if (objectNodeScript.camouflageCapacity <= 0 && camoUnits > 0)
                             {
                                 objectNodeScript.camouflageCapacity = camoCapacity;
-                                //objectNodeScript.trueMat = camouflageMat;
+                                if (objectNodeScript.trueMat == objectNodeScript.originalMat)
+                                {
+                                    objectNodeScript.trueMat = camouflageMat;
+                                }
+                                
                                 objectNodeScript.originalMat = camouflageMat;
                                 objectNodeScript.nodeModel.gameObject.GetComponent<MeshRenderer>().material = camouflageMat;
+                                objectNodeScript.UpdateText();
                                 camoUnits--;
+                                updateCamoText();
                             }
                         }
                         
@@ -53,5 +63,10 @@ public class CamouflageScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    void updateCamoText()
+    {
+        camoCounterLabel.SetText(camoUnits + " CAMO UNITS");
     }
 }
