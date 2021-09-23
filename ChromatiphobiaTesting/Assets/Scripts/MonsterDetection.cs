@@ -15,12 +15,15 @@ public class MonsterDetection : MonoBehaviour
     private Vector3 playerpos;
     List<GameObject> foundUnits = new List<GameObject>();
 
+    public GameObject damageSphere;
+
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         playerpos = new Vector3(1, 1, 1);
+        damageSphere.SetActive(false);
 
     }
 
@@ -97,11 +100,31 @@ public class MonsterDetection : MonoBehaviour
 
         if (isChasing)
         {
+            damageSphere.SetActive(true);
             if (foundUnits.Count > 0)
             {
-                GetComponent<Patrolling1>().enabled = false;
-                agent.destination = foundUnits[0].transform.position;
-                agent.speed = 2;
+                bool pursueFirstTarget = true;
+
+                //If the first target's current node has a camouflage capacity, 
+                if (foundUnits[0].GetComponent<unitMovementScript>().currentNode.GetComponent<nodeScript>().camouflageCapacity > 0)
+                {
+                    int camoCapacity = foundUnits[0].GetComponent<unitMovementScript>().currentNode.GetComponent<nodeScript>().camouflageCapacity;
+                    int currentCapacity = foundUnits[0].GetComponent<unitMovementScript>().currentNode.GetComponent<nodeScript>().currentCapacity;
+
+                    if(currentCapacity <= camoCapacity)
+                    {
+                        pursueFirstTarget = false;
+                    }
+                }
+
+                if (pursueFirstTarget)
+                {
+                    //print("PURSUING TARGET!");
+                    GetComponent<Patrolling1>().enabled = false;
+                    agent.destination = foundUnits[0].transform.position;
+                    agent.speed = 2;
+                }
+                
             }
         }
 
@@ -110,6 +133,7 @@ public class MonsterDetection : MonoBehaviour
 
         else
         {
+            damageSphere.SetActive(false);
             GetComponent<Patrolling1>().enabled = true;
         }
     }

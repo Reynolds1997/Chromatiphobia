@@ -159,7 +159,7 @@ public class nodeScript : MonoBehaviour
 
     }
 
-    void UpdateText()
+    public void UpdateText()
     {
         string newText = "";
 

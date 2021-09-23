@@ -24,7 +24,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca2df2d22d58284c85e3c938094f6d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1769604418
+--- !u!114 &2024787205840294067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002795860622050022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca2df2d22d58284c85e3c938094f6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1282149358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33,13 +45,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6240046860853044350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35581aa5a6c14b345a189bc1384533d6, type: 3}
+  m_Script: {fileID: 11500000, guid: d716aa1d9348c1e4e8c468848c8c48a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelected: 0
-  barricades: 2
-  barricadeTag: barricade
-  barricadeCounterLabel: {fileID: 0}
+  moveNodeTag: movementNode
+  camouflageMat: {fileID: 2100000, guid: a54648d3707280f4e89c65c93be5d7c2, type: 2}
+  camoCapacity: 1
+  camoUnits: 4
+  camoCounterLabel: {fileID: 0}
 --- !u!1001 &3323382160172145608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064107522563919177, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_VersionIndex
-      value: 40
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 7066498706640208131, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_LocalPosition.y
@@ -85,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8684664082675698948, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_VersionIndex
-      value: 40
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 8684664082675698950, guid: 8f35727661a2e3a4dbdb59817aa97c74, type: 3}
       propertyPath: m_Mesh
