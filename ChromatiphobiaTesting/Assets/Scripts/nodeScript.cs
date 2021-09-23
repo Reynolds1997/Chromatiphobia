@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class nodeScript : MonoBehaviour
 {
@@ -39,13 +40,26 @@ public class nodeScript : MonoBehaviour
 
     public GameObject viewCylinder;
 
-    private bool hasScout = false;
+    public bool hasScout = false;
+
+    public int victoryCapacity = 10; //Minimum number of units required to win.
+
+    public int camouflageCapacity = -1; //Maximum number of units that can hide in a node. Exceeding this count leaves all units in the node vulnerable.
+
+    public Material trueMat;
+    public Material originalMat;
+    public GameObject nodeModel;
+
 
     // Start is called before the first frame update
     void Start()
     {
-       
-        
+       originalMat = nodeModel.GetComponent<MeshRenderer>().material;
+       if(trueMat == null)
+       {
+           trueMat = originalMat;
+       }
+
     }
 
     // Update is called once per frame
@@ -91,6 +105,10 @@ public class nodeScript : MonoBehaviour
 
         currentCapacity++;
         currentOccupants.Add(unit);
+        if(currentCapacity >= victoryCapacity)
+        {
+            victory();
+        }
 
         if(unit.GetComponent<UnitStatsManager>().unitName == "Scout")
         {
@@ -105,7 +123,8 @@ public class nodeScript : MonoBehaviour
 
         if (unit.GetComponent<UnitStatsManager>().unitName == "Scout")
         {
-            hasScout = false;
+           // nodeModel.gameObject.GetComponent<MeshRenderer>().material = originalMat;
+           // hasScout = false;
         }
 
         currentCapacity--;
@@ -139,12 +158,18 @@ public class nodeScript : MonoBehaviour
         //    
         if (hasScout)
         {
-            newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+            //newText = nodeName + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
         }
         else
         {
-            newText = "UNKNOWN" + "\n" + currentCapacity.ToString() + "/" + maxCapacity.ToString();
+            //newText = "Room" + "\n" + 
         }
+        newText = currentCapacity.ToString() + "/" + maxCapacity.ToString();
+        if(camouflageCapacity > 0)
+        {
+            newText += "\n" + "Camo: " + currentCapacity.ToString() + "/" + camouflageCapacity.ToString();
+        }
+
         textLabel.SetText(newText);
     }
 
@@ -152,8 +177,7 @@ public class nodeScript : MonoBehaviour
     {
         foreach (GameObject node in connectedNodes)
         {
-
-            node.GetComponent<nodeScript>().DrawLine(node.transform.position, this.transform.position, startColor, endColor);
+            node.GetComponent<nodeScript>().DrawLine(node.transform.position, this.transform.position, startColor, endColor,hasScout);
         }
     }
 
@@ -171,12 +195,21 @@ public class nodeScript : MonoBehaviour
         debugOn = false;
     }
 
-    public void DrawLine(Vector3 start, Vector3 end, Color startColor, Color endColor)
+    public void DrawLine(Vector3 start, Vector3 end, Color startColor, Color endColor, bool hasScout)
     {
 
-        
-        barricadeSphere.transform.position = (start + end) / 2;
-        barricadeSphere.GetComponent<MeshRenderer>().material.color = startColor;
+
+        //barricadeSphere.transform.position = (start + end) / 2;
+        //barricadeSphere.GetComponent<MeshRenderer>().material.color = startColor;
+        UpdateText();
+        if (hasScout)
+        {
+            nodeModel.gameObject.GetComponent<MeshRenderer>().material = trueMat;
+        }
+        else
+        {
+            nodeModel.gameObject.GetComponent<MeshRenderer>().material = originalMat;
+        }
 
         LineRenderer lineRenderer = this.GetComponent<LineRenderer>(); // new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.enabled = true;
@@ -243,6 +276,7 @@ public class nodeScript : MonoBehaviour
 
     void victory()
     {
-
+        print("VICTORY!");
+        SceneManager.LoadScene(0);
     }
 }
