@@ -16,7 +16,10 @@ public class nodeScript : MonoBehaviour
 
     //node type properties variables
     public int visitsUntilDestroyed;
-    public int damage;
+    public int damageOnArrival;
+    public int delayedDamageHaz;
+    public int delayedDamageTimeHaz;
+    public bool typeOfHazNode;
     private Color startColor = Color.blue;
     private Color endColor = Color.green;
    
@@ -82,11 +85,14 @@ public class nodeScript : MonoBehaviour
         {
             visitsUntilDestroyed--;
         }
-        if(damage > 0) {
-            unit.GetComponent<UnitStatsManager>().subtractHealth(damage);
+        if(damageOnArrival > 0) {
+            unit.GetComponent<UnitStatsManager>().subtractHealth(damageOnArrival);
             print(unit.GetComponent<UnitStatsManager>().currentHealth);
         }
-
+        if(delayedDamageHaz != 0 && delayedDamageTimeHaz != 0)
+        {
+            unit.GetComponent<UnitStatsManager>().onHazNodeStart(true, delayedDamageTimeHaz, typeOfHazNode, delayedDamageHaz);
+        }
         currentCapacity++;
         currentOccupants.Add(unit);
         UpdateText();
@@ -97,7 +103,10 @@ public class nodeScript : MonoBehaviour
         currentCapacity--;
         currentOccupants.Remove(unit);
         UpdateText();
-
+        if (delayedDamageHaz != 0 && delayedDamageTimeHaz != 0)
+        {
+            unit.GetComponent<UnitStatsManager>().onHazNodeEnd(false);
+        }
         if (visitsUntilDestroyed == 0)
         {
             foreach (GameObject node in connectedNodes)
