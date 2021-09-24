@@ -30,6 +30,8 @@ public class UnitStatsManager : MonoBehaviour
     private int damageOnHaz;
     private bool continousOROnceDelayedDamage;
 
+    public AudioClip damageSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -104,6 +106,7 @@ public class UnitStatsManager : MonoBehaviour
     public void subtractHealth(int healthAmount)
     {
         currentHealth -= healthAmount;
+        this.gameObject.GetComponent<AudioSource>().PlayOneShot(damageSound);
         if (currentHealth <= 0)
         {
             killUnit();
