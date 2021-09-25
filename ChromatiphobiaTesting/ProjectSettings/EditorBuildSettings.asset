@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/EvanMainMenu.unity
     guid: 22dbf2326541ebd4f8498cd780d7bbff
   - enabled: 1
+    path: Assets/Scenes/PrototypeLevelScene.unity
+    guid: 5bee358a526ff6840988d4113eb577d0
+  - enabled: 0
     path: Assets/Scenes/EvanTestLab.unity
     guid: b20bc2ead78b5b6409d5ba40ec4efa0c
   m_configObjects: {}
